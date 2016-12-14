@@ -1,11 +1,12 @@
 <?php
-namespace common\models;
+namespace backend\models;
 
+use common\models\Admin;
 use Yii;
 use yii\base\Model;
 
 /**
- * Login form
+ * 后台用户登录表单模型
  */
 class LoginForm extends Model
 {
@@ -70,9 +71,18 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Admin::findByUsername($this->username);
         }
 
         return $this->_user;
+    }
+
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('common', 'username'),
+            'password' => Yii::t('common', 'password'),
+        ];
     }
 }

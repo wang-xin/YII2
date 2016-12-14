@@ -12,6 +12,8 @@ return [
     'About' => '关于我',
 
 
-    'Signup' => '注册',
-    'Login'  => '登录',
+    'Sign Up'  => '注册',
+    'Sign In'  => '登录',
+    'username' => '用户名',
+    'password' => '密码',
 ];
