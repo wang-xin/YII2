@@ -12,22 +12,19 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'statics/css/bootstrap.min14ed.css',
-        'statics/css/font-awesome.min93e3.css',
-        'statics/css/animate.min.css',
-        'statics/css/style.min862f.css',
+        'statics/plugins/font-awesome/css/font-awesome.min.css',
+        'statics/plugins/ionicons/css/ionicons.min.css',
+        'statics/css/AdminLTE.min.css',
+        'statics/css/skins/_all-skins.min.css',
     ];
     public $js = [
-        'statics/js/bootstrap.min.js',
-        'statics/js/plugins/metisMenu/jquery.metisMenu.js',
-        'statics/js/plugins/slimscroll/jquery.slimscroll.min.js',
-        'statics/js/plugins/layer/layer.min.js',
-        'statics/js/hplus.min.js',
-        'statics/js/contabs.min.js',
-        'statics/js/plugins/pace/pace.min.js'
+        'statics/plugins/slimScroll/jquery.slimscroll.min.js',
+        'statics/plugins/fastclick/fastclick.js',
+        'statics/js/app.min.js',
+        'statics/js/demo.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }
