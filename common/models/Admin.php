@@ -31,7 +31,7 @@ class Admin extends BaseModel implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return '{{%admin}}';
     }
 
     /**

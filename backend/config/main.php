@@ -58,10 +58,8 @@ return [
     'as access'           => [
         'class'        => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            '*'
             //这里是允许访问的action
             //controller/action
-            // 'site/login'
         ],
     ],
     'params'              => $params,

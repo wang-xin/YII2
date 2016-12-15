@@ -22,45 +22,50 @@ class Menu extends \yii\widgets\Menu
     public $linkTemplate = '<a href="{url}">{icon} {label}</a>';
     public $submenuTemplate = "\n<ul class='treeview-menu' {show}>\n{items}\n</ul>\n";
     public $activateParents = true;
+
     /**
      * @inheritdoc
      */
     protected function renderItem($item)
     {
-        if(isset($item['items'])) {
+        if (isset($item['items'])) {
             $labelTemplate = '<a href="{url}">{label} <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
             $linkTemplate = '<a href="{url}">{icon} {label} <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
-        }
-        else {
+        } else {
             $labelTemplate = $this->labelTemplate;
             $linkTemplate = $this->linkTemplate;
         }
         if (isset($item['url'])) {
             $template = ArrayHelper::getValue($item, 'template', $linkTemplate);
             $replace = !empty($item['icon']) ? [
-                '{url}' => Url::to($item['url']),
-                '{label}' => '<span>'.$item['label'].'</span>',
-                '{icon}' => '<i class="' . $item['icon'] . '"></i> '
+                '{url}'   => Url::to($item['url']),
+                '{label}' => '<span>' . $item['label'] . '</span>',
+                '{icon}'  => '<i class="' . $item['icon'] . '"></i> ',
             ] : [
-                '{url}' => Url::to($item['url']),
-                '{label}' => '<span>'.$item['label'].'</span>',
-                '{icon}' => null,
+                '{url}'   => Url::to($item['url']),
+                '{label}' => '<span>' . $item['label'] . '</span>',
+                '{icon}'  => null,
             ];
+
             return strtr($template, $replace);
         } else {
             $template = ArrayHelper::getValue($item, 'template', $labelTemplate);
             $replace = !empty($item['icon']) ? [
-                '{label}' => '<span>'.$item['label'].'</span>',
-                '{icon}' => '<i class="' . $item['icon'] . '"></i> '
+                '{label}' => '<span>' . $item['label'] . '</span>',
+                '{icon}'  => '<i class="' . $item['icon'] . '"></i> ',
             ] : [
-                '{label}' => '<span>'.$item['label'].'</span>',
+                '{label}' => '<span>' . $item['label'] . '</span>',
             ];
+
             return strtr($template, $replace);
         }
     }
+
     /**
      * Recursively renders the menu items (without the container tag).
+     *
      * @param array $items the menu items to be rendered recursively
+     *
      * @return string the rendering result
      */
     protected function renderItems($items)
@@ -90,14 +95,16 @@ class Menu extends \yii\widgets\Menu
             $menu = $this->renderItem($item);
             if (!empty($item['items'])) {
                 $menu .= strtr($this->submenuTemplate, [
-                    '{show}' => $item['active'] ? "style='display: block'" : '',
+                    '{show}'  => $item['active'] ? "style='display: block'" : '',
                     '{items}' => $this->renderItems($item['items']),
                 ]);
             }
             $lines[] = Html::tag($tag, $menu, $options);
         }
+
         return implode("\n", $lines);
     }
+
     /**
      * @inheritdoc
      */
@@ -135,8 +142,10 @@ class Menu extends \yii\widgets\Menu
                 $active = true;
             }
         }
+
         return array_values($items);
     }
+
     /**
      * Checks whether a menu item is active.
      * This is done by checking if [[route]] and [[params]] match that specified in the `url` option of the menu item.
@@ -144,7 +153,9 @@ class Menu extends \yii\widgets\Menu
      * as the route for the item and the rest of the elements are the associated parameters.
      * Only when its route and parameters match [[route]] and [[params]], respectively, will a menu item
      * be considered active.
+     *
      * @param array $item the menu item to be checked
+     *
      * @return boolean whether the menu item is active
      */
     protected function isItemActive($item)
@@ -156,7 +167,24 @@ class Menu extends \yii\widgets\Menu
             }
             $arrayRoute = explode('/', ltrim($route, '/'));
             $arrayThisRoute = explode('/', $this->route);
-            if ($arrayRoute[0] !== $arrayThisRoute[0]) {
+
+            $routeCount = count($arrayRoute);
+            if ($routeCount == 2) {
+                if ($arrayRoute[0] !== $arrayThisRoute[0]) {
+                    return false;
+                }
+            } elseif ($routeCount == 3) {
+                if ($arrayRoute[0] !== $arrayThisRoute[0]) {
+                    return false;
+                }
+                if (isset($arrayRoute[1]) && $arrayRoute[1] !== $arrayThisRoute[1]) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+            /*if ($arrayRoute[0] !== $arrayThisRoute[0]) {
                 return false;
             }
             if (isset($arrayRoute[1]) && $arrayRoute[1] !== $arrayThisRoute[1]) {
@@ -172,9 +200,11 @@ class Menu extends \yii\widgets\Menu
                         return false;
                     }
                 }
-            }
+            }*/
+
             return true;
         }
+
         return false;
     }
 }
