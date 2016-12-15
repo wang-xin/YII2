@@ -2,14 +2,14 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use mdm\admin\components\RouteRule;
-use mdm\admin\AutocompleteAsset;
+use backend\modules\admin\components\RouteRule;
+use backend\modules\admin\AutocompleteAsset;
 use yii\helpers\Json;
 
 /* @var $this yii\web\View */
-/* @var $model mdm\admin\models\AuthItem */
+/* @var $model backend\modules\admin\models\AuthItem */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $context mdm\admin\components\ItemController */
+/* @var $context backend\modules\admin\components\ItemController */
 
 $context = $this->context;
 $labels = $context->labels();
