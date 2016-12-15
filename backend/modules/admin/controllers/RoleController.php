@@ -1,8 +1,8 @@
 <?php
 
-namespace mdm\admin\controllers;
+namespace backend\modules\admin\controllers;
 
-use mdm\admin\components\ItemController;
+use backend\modules\admin\components\ItemController;
 use yii\rbac\Item;
 
 /**

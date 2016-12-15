@@ -1,6 +1,6 @@
 <?php
 
-namespace mdm\admin\components;
+namespace backend\modules\admin\components;
 
 use yii\web\ForbiddenHttpException;
 use yii\base\Module;

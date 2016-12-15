@@ -22,9 +22,9 @@ if ($page == 'README.md') {
         $url = Url::to($menu['url'], true);
         $links[] = "[**{$menu['label']}**]({$url})";
     }
-    $body = str_replace(':smile:.', ".\n\n" . implode('  ', $links) . "\n", $this->render("@mdm/admin/README.md"));
+    $body = str_replace(':smile:.', ".\n\n" . implode('  ', $links) . "\n", $this->render("@backend/modules/admin/README.md"));
 } else {
-    $body = $this->render("@mdm/admin/{$page}");
+    $body = $this->render("@backend/modules/admin/{$page}");
 }
 
 $body = preg_replace_callback('/\]\((.*?)\)/', function($matches) use($baseDir) {

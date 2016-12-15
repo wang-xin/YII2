@@ -1,6 +1,6 @@
 <?php
 
-namespace mdm\admin;
+namespace backend\modules\admin;
 
 use yii\web\AssetBundle;
 
@@ -15,7 +15,7 @@ class AutocompleteAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@mdm/admin/assets';
+    public $sourcePath = '@backend/modules/admin/assets';
     /**
      * @inheritdoc
      */

@@ -1,11 +1,11 @@
 <?php
 
-namespace mdm\admin\models\searchs;
+namespace backend\modules\admin\models\searchs;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use mdm\admin\models\User as UserModel;
+use backend\modules\admin\models\User as UserModel;
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.

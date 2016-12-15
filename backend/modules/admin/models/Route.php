@@ -1,12 +1,12 @@
 <?php
 
-namespace mdm\admin\models;
+namespace backend\modules\admin\models;
 
 use Yii;
-use mdm\admin\components\Helper;
+use backend\modules\admin\components\Helper;
 use yii\caching\TagDependency;
-use mdm\admin\components\RouteRule;
-use mdm\admin\components\Configs;
+use backend\modules\admin\components\RouteRule;
+use backend\modules\admin\components\Configs;
 use yii\helpers\VarDumper;
 use Exception;
 

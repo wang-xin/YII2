@@ -1,12 +1,12 @@
 <?php
 
-namespace mdm\admin\models;
+namespace backend\modules\admin\models;
 
 use Yii;
 use yii\rbac\Item;
 use yii\helpers\Json;
 use yii\base\Model;
-use mdm\admin\components\Helper;
+use backend\modules\admin\components\Helper;
 
 /**
  * This is the model class for table "tbl_auth_item".

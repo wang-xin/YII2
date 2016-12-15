@@ -1,10 +1,10 @@
 <?php
 
-namespace mdm\admin\models;
+namespace backend\modules\admin\models;
 
 use Yii;
 use yii\base\Object;
-use mdm\admin\components\Helper;
+use backend\modules\admin\components\Helper;
 
 /**
  * Description of Assignment

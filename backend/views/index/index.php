@@ -12,32 +12,23 @@
 
 $this->title = 'My Yii Application';
 ?>
-<div class="wrapper wrapper-content">
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Title</h3>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="ibox-content">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>用户名</th>
-                            <th>登录IP</th>
-                            <th>登录时间</th>
-                            <th>备注</th>
-                        </tr>
-                        </thead>
-
-                        </tbody>
-                    </table>
-                    <!--分页-->
-                    <div class="f-r">
-
-                    </div>
-                </div>
-            </div>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i></button>
         </div>
     </div>
+    <div class="box-body">
+        Start creating your amazing application!
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        Footer
+    </div>
+    <!-- /.box-footer-->
 </div>
-

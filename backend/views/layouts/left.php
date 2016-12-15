@@ -6,7 +6,7 @@
  * Time: 15:18
  */
 
-use mdm\admin\components\MenuHelper;
+use backend\modules\admin\components\MenuHelper;
 
 $callback = function ($menu) {
     $data = json_decode($menu['data'], true);
