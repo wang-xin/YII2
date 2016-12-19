@@ -185,4 +185,15 @@ class Admin extends BaseModel implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+
+    public function attributeLabels()
+    {
+        return [
+            'username'   => Yii::t('rbac-admin', 'Username'),
+            'email'      => Yii::t('rbac-admin', 'Email'),
+            'created_at' => Yii::t('rbac-admin', 'Created At'),
+            'status'     => Yii::t('rbac-admin', 'Status'),
+        ];
+    }
 }

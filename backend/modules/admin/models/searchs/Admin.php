@@ -5,12 +5,13 @@ namespace backend\modules\admin\models\searchs;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\admin\models\User as UserModel;
+use common\models\Admin as AdminModel;
+
 
 /**
  * User represents the model behind the search form about `mdm\admin\models\User`.
  */
-class User extends UserModel
+class Admin extends AdminModel
 {
     /**
      * @inheritdoc
@@ -41,7 +42,7 @@ class User extends UserModel
      */
     public function search($params)
     {
-        $query = UserModel::find();
+        $query = AdminModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

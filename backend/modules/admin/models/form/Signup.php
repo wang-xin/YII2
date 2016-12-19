@@ -2,7 +2,7 @@
 namespace backend\modules\admin\models\form;
 
 use Yii;
-use backend\modules\admin\models\User;
+use common\models\Admin;
 use yii\base\Model;
 
 /**
@@ -22,13 +22,13 @@ class Signup extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => 'mdm\admin\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => 'common\models\Admin', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => 'mdm\admin\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => 'common\models\Admin', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
@@ -43,7 +43,7 @@ class Signup extends Model
     public function signup()
     {
         if ($this->validate()) {
-            $user = new User();
+            $user = new Admin();
             $user->username = $this->username;
             $user->email = $this->email;
             $user->setPassword($this->password);
@@ -54,5 +54,19 @@ class Signup extends Model
         }
 
         return null;
+    }
+
+    /**
+     * attributeLabels
+     * @auth King
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('rbac-admin', 'Username'),
+            'email' => Yii::t('rbac-admin', 'Email'),
+            'password' => Yii::t('rbac-admin', 'Password'),
+        ];
     }
 }

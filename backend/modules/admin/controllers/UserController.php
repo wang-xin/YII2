@@ -8,19 +8,18 @@ use backend\modules\admin\models\form\PasswordResetRequest;
 use backend\modules\admin\models\form\ResetPassword;
 use backend\modules\admin\models\form\Signup;
 use backend\modules\admin\models\form\ChangePassword;
-use backend\modules\admin\models\User;
-use backend\modules\admin\models\searchs\User as UserSearch;
+use common\models\Admin;
+use backend\modules\admin\models\searchs\Admin as AdminSearch;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use yii\base\UserException;
 use yii\mail\BaseMailer;
 
 /**
- * User controller
+ * 后台管理员控制器
  */
 class UserController extends Controller
 {
@@ -32,21 +31,6 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
-//            'access' => [
-//                'class' => AccessControl::className(),
-//                'rules' => [
-//                    [
-//                        'actions' => ['signup', 'reset-password', 'login', 'request-password-reset'],
-//                        'allow' => true,
-//                        'roles' => ['?'],
-//                    ],
-//                    [
-//                        'actions' => ['logout', 'change-password', 'index', 'view', 'delete', 'activate'],
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                ],
-//            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -91,7 +75,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new AdminSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -126,37 +110,6 @@ class UserController extends Controller
     }
 
     /**
-     * Login
-     * @return string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->getUser()->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new Login();
-        if ($model->load(Yii::$app->getRequest()->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                    'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Logout
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->getUser()->logout();
-
-        return $this->goHome();
-    }
-
-    /**
      * Signup new user
      * @return string
      */
@@ -165,7 +118,7 @@ class UserController extends Controller
         $model = new Signup();
         if ($model->load(Yii::$app->getRequest()->post())) {
             if ($user = $model->signup()) {
-                return $this->goHome();
+                return $this->redirect(['index']);
             }
         }
 
@@ -246,8 +199,8 @@ class UserController extends Controller
     {
         /* @var $user User */
         $user = $this->findModel($id);
-        if ($user->status == User::STATUS_INACTIVE) {
-            $user->status = User::STATUS_ACTIVE;
+        if ($user->status == Admin::STATUS_INACTIVE) {
+            $user->status = Admin::STATUS_ACTIVE;
             if ($user->save()) {
                 return $this->goHome();
             } else {
@@ -267,7 +220,7 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Admin::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
