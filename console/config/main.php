@@ -7,19 +7,26 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-console',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'id'                  => 'app-console',
+    'basePath'            => dirname(__DIR__),
+    'bootstrap'           => ['log'],
     'controllerNamespace' => 'console\controllers',
-    'components' => [
-        'log' => [
+    'components'          => [
+        'log'         => [
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class'  => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
+        'authManager' => [
+            'class'           => 'yii\rbac\DbManager',
+            'itemTable'       => 'yii2_auth_item',
+            'assignmentTable' => 'yii2_auth_assignment',
+            'itemChildTable'  => 'yii2_auth_item_child',
+            'ruleTable'       => 'yii2_auth_rule',
+        ],
     ],
-    'params' => $params,
+    'params'              => $params,
 ];
