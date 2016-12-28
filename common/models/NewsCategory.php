@@ -16,6 +16,9 @@ use Yii;
  */
 class NewsCategory extends BaseModel
 {
+    const STATUS_DISABLED = 0;  // 状态 禁用
+    const STATUS_ENABLED = 1;   // 状态 可用
+
     /**
      * @inheritdoc
      */
@@ -42,12 +45,12 @@ class NewsCategory extends BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('common', 'ID'),
-            'name' => Yii::t('common', 'Name'),
-            'parent_id' => Yii::t('common', 'Parent ID'),
-            'remark' => Yii::t('common', 'Remark'),
-            'sort' => Yii::t('common', 'Sort'),
-            'status' => Yii::t('common', 'Status'),
+            'id' => Yii::t('backend', 'ID'),
+            'name' => Yii::t('backend', 'Category Name'),
+            'parent_id' => Yii::t('backend', 'Parent ID'),
+            'remark' => Yii::t('backend', 'Remark'),
+            'sort' => Yii::t('backend', 'Sort'),
+            'status' => Yii::t('backend', 'Status'),
         ];
     }
 }

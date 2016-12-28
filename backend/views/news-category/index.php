@@ -3,12 +3,13 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\NewsCategory;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\searchs\NewsCategory */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'News Categories');
+$this->title = Yii::t('backend', 'News Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box">
@@ -41,7 +42,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'parent_id',
                 'remark',
                 'sort',
-                'status',
+                [
+                    'attribute' => 'status',
+                    'value'     => function ($model) {
+                        return $model->status == NewsCategory::STATUS_DISABLED ? Yii::t('backend', 'Disabled') : Yii::t('backend', 'Status Enabled');
+                    },
+                    'filter'    => [
+                        NewsCategory::STATUS_DISABLED => Yii::t('backend', 'Status Disabled'),
+                        NewsCategory::STATUS_ENABLED  => Yii::t('backend', 'Status Enabled'),
+                    ],
+                ],
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
