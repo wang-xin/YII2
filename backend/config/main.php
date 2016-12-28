@@ -55,8 +55,6 @@ return [
     'as access'           => [
         'class'        => 'backend\modules\admin\components\AccessControl',
         'allowActions' => [
-            //这里是允许访问的action
-            //controller/action
         ],
     ],
     'params'              => $params,
