@@ -18,7 +18,7 @@ class NewsCategory extends NewsCategoryModel
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'sort', 'status'], 'integer'],
+            [['id', 'parent_id', 'sort', 'status', 'created_at'], 'integer'],
             [['name', 'remark'], 'safe'],
         ];
     }
@@ -63,10 +63,12 @@ class NewsCategory extends NewsCategoryModel
             'parent_id' => $this->parent_id,
             'sort' => $this->sort,
             'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'remark', $this->remark]);
+            ->andFilterWhere(['created_at' => $this->created_at]);
 
         return $dataProvider;
     }

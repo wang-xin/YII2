@@ -13,6 +13,8 @@ use Yii;
  * @property string $remark
  * @property integer $sort
  * @property integer $status
+ * @property integer $created_at
+ * @property integer $updated_at
  */
 class NewsCategory extends BaseModel
 {
@@ -51,6 +53,8 @@ class NewsCategory extends BaseModel
             'remark' => Yii::t('backend', 'Remark'),
             'sort' => Yii::t('backend', 'Sort'),
             'status' => Yii::t('backend', 'Status'),
+            'created_at' => Yii::t('backend', 'Created At'),
+            'updated_at' => Yii::t('backend', 'Updated At'),
         ];
     }
 }

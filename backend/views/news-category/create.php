@@ -1,21 +1,32 @@
 <?php
 
-use yii\helpers\Html;
-
 
 /* @var $this yii\web\View */
 /* @var $model common\models\NewsCategory */
 
-$this->title = Yii::t('app', 'Create News Category');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News Categories'), 'url' => ['index']];
+$this->title = Yii::t('backend', 'Create News Category');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'News Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="news-category-create">
+<div class="box">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="box-header with-border">
+        <h3 class="box-title"></h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="box-body">
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
 
+    </div>
 </div>

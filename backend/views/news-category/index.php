@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id',
                 'name',
                 'parent_id',
-                'remark',
                 'sort',
+                'created_at',
                 [
                     'attribute' => 'status',
                     'value'     => function ($model) {

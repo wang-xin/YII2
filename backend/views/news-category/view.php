@@ -11,30 +11,45 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News Categories'), '
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-category-view">
+    <div class="box">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                <?= Html::a(Yii::t('backend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Yii::t('backend', 'Delete'), ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data'  => [
+                        'confirm' => Yii::t('backend', 'Are you sure you want to delete this item?'),
+                        'method'  => 'post',
+                    ],
+                ]) ?>
+            </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                        title="Remove">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+        <div class="box-body">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'parent_id',
-            'remark',
-            'sort',
-            'status',
-        ],
-    ]) ?>
+            <?= DetailView::widget([
+                'model'      => $model,
+                'attributes' => [
+                    'id',
+                    'name',
+                    'parent_id',
+                    'remark',
+                    'sort',
+                    'status',
+                ],
+            ]) ?>
 
+        </div>
+    </div>
 </div>
