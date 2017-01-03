@@ -41,15 +41,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'name',
                 'parent_id',
                 'sort',
-                'created_at',
+                [
+                    'attribute' => 'created_at',
+                    'value'     => function ($model) {
+                        return date('Y-m-d H:i:s', $model->created_at);
+                    },
+                ],
                 [
                     'attribute' => 'status',
                     'value'     => function ($model) {
                         return $model->status == NewsCategory::STATUS_DISABLED ?
-                            '<span class="label label-danger">'  . Yii::t('backend', 'Status Disabled') . '</span>' :
-                            '<span class="label label-success">'  . Yii::t('backend', 'Status Enabled') . '</span>';
+                            '<span class="label label-danger">' . Yii::t('backend', 'Status Disabled') . '</span>' :
+                            '<span class="label label-success">' . Yii::t('backend', 'Status Enabled') . '</span>';
                     },
-                    'format' => 'html',
+                    'format'    => 'html',
                     'filter'    => [
                         NewsCategory::STATUS_DISABLED => Yii::t('backend', 'Status Disabled'),
                         NewsCategory::STATUS_ENABLED  => Yii::t('backend', 'Status Enabled'),

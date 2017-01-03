@@ -18,7 +18,8 @@ class NewsCategory extends NewsCategoryModel
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'sort', 'status', 'created_at'], 'integer'],
+            [['id', 'parent_id', 'sort', 'status'], 'integer'],
+            ['created_at', 'date'],
             [['name', 'remark'], 'safe'],
         ];
     }
@@ -59,16 +60,19 @@ class NewsCategory extends NewsCategoryModel
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'id'        => $this->id,
             'parent_id' => $this->parent_id,
-            'sort' => $this->sort,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'sort'      => $this->sort,
+            'status'    => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['created_at' => $this->created_at]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
+
+        if ($this->created_at) {
+            $createdAt = strtotime($this->created_at);
+            $createdAtEnd = $createdAt + 24 * 3600;
+            $query->andFilterWhere(['between', 'created_at', $createdAt, $createdAtEnd]);
+        }
 
         return $dataProvider;
     }
