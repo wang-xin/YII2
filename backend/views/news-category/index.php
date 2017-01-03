@@ -45,8 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'status',
                     'value'     => function ($model) {
-                        return $model->status == NewsCategory::STATUS_DISABLED ? Yii::t('backend', 'Disabled') : Yii::t('backend', 'Status Enabled');
+                        return $model->status == NewsCategory::STATUS_DISABLED ?
+                            '<span class="label label-danger">'  . Yii::t('backend', 'Status Disabled') . '</span>' :
+                            '<span class="label label-success">'  . Yii::t('backend', 'Status Enabled') . '</span>';
                     },
+                    'format' => 'html',
                     'filter'    => [
                         NewsCategory::STATUS_DISABLED => Yii::t('backend', 'Status Disabled'),
                         NewsCategory::STATUS_ENABLED  => Yii::t('backend', 'Status Enabled'),
