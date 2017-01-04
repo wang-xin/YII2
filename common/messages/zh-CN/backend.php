@@ -22,5 +22,12 @@ return [
     'Update'                                     => '更新',
     'Delete'                                     => '删除',
     'Are you sure you want to delete this item?' => '您确定要删除此项吗？',
-
+    'News Articles'                              => '文章管理',
+    'Create News Article'                        => '创建文章',
+    'Title'                                      => '标题',
+    'Summary'                                    => '摘要',
+    'Content'                                    => '文章内容',
+    'Hits'                                       => '浏览次数',
+    'Thumb Img'                                  => '缩略图',
+    'Belong To Category'                                => '所属分类',
 ];
