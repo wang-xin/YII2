@@ -82,6 +82,7 @@ class UeditorAction extends Action
         switch (htmlspecialchars($_GET['action'])) {
             case 'uploadimage':
                 $config = array(
+                    "uploadFilePath" => $this->config['uploadFilePath'],
                     "pathFormat" => $this->config['imagePathFormat'],
                     "maxSize" => $this->config['imageMaxSize'],
                     "allowFiles" => $this->config['imageAllowFiles']
@@ -90,6 +91,7 @@ class UeditorAction extends Action
                 break;
             case 'uploadscrawl':
                 $config = array(
+                    "uploadFilePath" => $this->config['uploadFilePath'],
                     "pathFormat" => $this->config['scrawlPathFormat'],
                     "maxSize" => $this->config['scrawlMaxSize'],
                     "oriName" => "scrawl.png"
@@ -99,6 +101,7 @@ class UeditorAction extends Action
                 break;
             case 'uploadvideo':
                 $config = array(
+                    "uploadFilePath" => $this->config['uploadFilePath'],
                     "pathFormat" => $this->config['videoPathFormat'],
                     "maxSize" => $this->config['videoMaxSize'],
                     "allowFiles" => $this->config['videoAllowFiles']
@@ -108,6 +111,7 @@ class UeditorAction extends Action
             case 'uploadfile':
             default:
                 $config = array(
+                    "uploadFilePath" => $this->config['uploadFilePath'],
                     "pathFormat" => $this->config['filePathFormat'],
                     "maxSize" => $this->config['fileMaxSize'],
                     "allowFiles" => $this->config['fileAllowFiles']
