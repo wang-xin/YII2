@@ -43,7 +43,14 @@ class NewsArticleController extends Controller
                     'imageUrlPrefix'  => Yii::$app->params['uploadFileUrl'],   /* 图片访问路径前缀 */
                     'uploadFilePath'  => Yii::$app->params['uploadRootPath'],  /* 文件上传目录 */
                     'imagePathFormat' => Yii::$app->params['imagePathFormat'], /* 上传图片保存路径 */
-                    'filePathFormat' => Yii::$app->params['filePathFormat'],   /* 上传文件保存路径 */
+                    'filePathFormat'  => Yii::$app->params['filePathFormat'],  /* 上传文件保存路径 */
+                ],
+            ],
+            'upload'  => [
+                'class'  => 'common\widgets\file_upload\UploadAction',
+                'config' => [
+                    'uploadFilePath'  => Yii::$app->params['uploadRootPath'],  /* 文件上传目录 */
+                    'imagePathFormat' => Yii::$app->params['imagePathFormat'],
                 ],
             ],
         ];

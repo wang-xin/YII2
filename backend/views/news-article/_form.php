@@ -18,13 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'summary')->textarea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'thumb_img')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'thumb_img')->widget(\common\widgets\file_upload\FileUpload::className(), [
+        'config' => [
+            'domain_url' => Yii::$app->params['uploadFileUrl'],   /* 图片访问路径前缀 */
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'content')->widget(\common\widgets\ueditor\Ueditor::className(), [
-        'options'=>[
-            'initialFrameWidth' => '100%',
+        'options' => [
+            'initialFrameWidth'  => '100%',
             'initialFrameHeight' => '500',
-        ]
+        ],
     ]) ?>
 
     <?= $form->field($model, 'tag')->textInput(['maxlength' => true]) ?>
