@@ -1,5 +1,5 @@
 .per_upload_con {
-    width: 462px;
+    /*width: 462px;*/
     height: 148px;
     position: relative;
 }
@@ -39,7 +39,7 @@
     color: #ff7624;
 }
 .per_upload_text {
-    width: 216px;
+    /*width: 216px;*/
     float: left;
     padding-top: 12px;
 }
