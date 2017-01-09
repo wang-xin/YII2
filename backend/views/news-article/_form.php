@@ -31,7 +31,9 @@ use yii\widgets\ActiveForm;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'tag')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tag')->widget(\common\widgets\tags\TagWidget::className()) ?>
+
+    <?= $form->field($model, 'is_valid')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

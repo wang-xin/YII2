@@ -93,8 +93,8 @@ class NewsArticleController extends Controller
     public function actionCreate()
     {
         $model = new NewsArticleForm();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model->scenarios(NewsArticleForm::SCENARIO_CREATE);
+        if ($model->load(Yii::$app->request->post()) && $model->create()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
