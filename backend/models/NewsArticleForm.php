@@ -87,9 +87,13 @@ class NewsArticleForm extends BaseFormModel
         } catch (\Exception $exception) {
             $transaction->rollBack();   // 回滚
             $this->_lastError = $exception->getMessage();
-            echo $this->_lastError;
             return false;
         }
+    }
+
+    public function getArticleById($id)
+    {
+
     }
 
     /**
@@ -141,7 +145,6 @@ class NewsArticleForm extends BaseFormModel
         // 保存标签
         $tagModel = new NewsTagForm();
         $tagModel->tags = $event->data['tag'];
-
         $tagIds = $tagModel->saveTags();
 
         // 删除之前关联关系

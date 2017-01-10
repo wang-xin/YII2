@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->textInput()->label(Yii::t('backend', 'Belong To Category')) ?>
+    <?= $form->field($model, 'category_id')->dropDownList($categories)->label(Yii::t('backend', 'Belong To Category')) ?>
 
     <?= $form->field($model, 'summary')->textarea(['rows' => 3]) ?>
 
@@ -33,7 +33,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tag')->widget(\common\widgets\tags\TagWidget::className()) ?>
 
-    <?= $form->field($model, 'is_valid')->textInput() ?>
+    <?= $form->field($model, 'is_valid')->dropDownList([
+            \common\models\NewsArticle::IS_VALID => Yii::t('backend', 'Publish'),
+            \common\models\NewsArticle::NO_VALID => Yii::t('backend', 'Unpublish'),
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

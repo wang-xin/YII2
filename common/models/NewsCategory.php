@@ -42,6 +42,16 @@ class NewsCategory extends BaseModel
     }
 
     /**
+     * getAllCategories
+     * @auth King
+     */
+    public static function getAllCategories()
+    {
+        $data = self::find()->where(['status' => self::STATUS_ENABLED])->orderBy(['sort' => SORT_ASC])->asArray()->all();
+        return $data;
+    }
+
+    /**
      * @inheritdoc
      */
     public function attributeLabels()

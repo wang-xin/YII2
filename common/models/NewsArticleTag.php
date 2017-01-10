@@ -21,6 +21,11 @@ class NewsArticleTag extends \common\models\BaseModel
         return '{{%news_article_tag}}';
     }
 
+    public function getTag()
+    {
+        return $this->hasOne(NewsTag::className(), ['id' => 'tag_id']);
+    }
+
     /**
      * @inheritdoc
      */

@@ -35,4 +35,6 @@ return [
     'The article create failure!'                  => '文章创建失败',
     'The tags create failure!'                     => '标签保存失败',
     'Articles and correlation of tag save failed!' => '文章与标签的关联关系保存失败',
+    'Publish'                                      => '发布',
+    'Unpublish'                                    => '暂不发布',
 ];

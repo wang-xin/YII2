@@ -11,7 +11,19 @@ namespace common\helpers;
 
 class Tree
 {
-    public static function list2tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root = 0)
+    /**
+     * 把返回的数据集转换成Tree(多位数组)
+     * @auth King
+     *
+     * @param        $list
+     * @param string $pk
+     * @param string $pid
+     * @param string $child
+     * @param int    $root
+     *
+     * @return array
+     */
+    public static function list2tree($list, $pk = 'id', $pid = 'parent_id', $child = '_child', $root = 0)
     {
         // 创建Tree
         $tree = [];
@@ -37,5 +49,34 @@ class Tree
         }
 
         return $tree;
+    }
+
+    /**
+     * unLimitedForLevel
+     * @auth King
+     *
+     * @param        $list
+     * @param string $pid
+     * @param int    $level
+     * @param string $html
+     * @param int    $root
+     *
+     * @return array
+     */
+    public static function unLimitedForLevel($list, $pid = 'parent_id', $level = 0, $html = '--', $root = 0)
+    {
+        $arr = [];
+        if (is_array($list)) {
+            foreach ($list as $data) {
+                if ($data[$pid] == $root) {
+                    $data['level'] = $level + 1;
+                    $data['html'] = str_repeat($html, $level);
+                    $arr[] = $data;
+                    $arr = array_merge($arr, self::unLimitedForLevel($list, $pid, $level + 1, $html, $data['id']));
+                }
+            }
+        }
+
+        return $arr;
     }
 }

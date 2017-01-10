@@ -3,9 +3,12 @@
 namespace backend\controllers;
 
 use backend\models\NewsArticleForm;
+use common\helpers\Tree;
+use common\models\NewsCategory;
 use Yii;
 use common\models\NewsArticle;
 use backend\models\searchs\NewsArticle as NewsArticleSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -92,15 +95,29 @@ class NewsArticleController extends Controller
      */
     public function actionCreate()
     {
+        $categoryLists = NewsCategory::getAllCategories();
+        $categoriesForLevel = Tree::unLimitedForLevel($categoryLists);
+        foreach ($categoriesForLevel as $key => $value) {
+            $categoriesForLevel[$key]['name'] = $value['html'] . $value['name'];
+        }
+        $categories = ArrayHelper::map($categoriesForLevel, 'id', 'name');
+        $categories = ArrayHelper::htmlDecode($categories);
+
         $model = new NewsArticleForm();
         $model->scenarios(NewsArticleForm::SCENARIO_CREATE);
-        if ($model->load(Yii::$app->request->post()) && $model->create()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (!$model->create()) {
+                Yii::$app->session->setFlash('Warning', $model->_lastError);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        return $this->render('create', [
+            'model'      => $model,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -150,7 +167,10 @@ class NewsArticleController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = NewsArticle::findOne($id)) !== null) {
+        $model = NewsArticle::find()->with(['relate.tag'])->where(['id' => $id])->one();
+        // print_r($model->relate[0]->tag);die;
+
+        if (null !== $model) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

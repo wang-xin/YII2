@@ -32,6 +32,11 @@ class NewsArticle extends BaseModel
         return '{{%news_article}}';
     }
 
+    public function getRelate()
+    {
+        return $this->hasMany(NewsArticleTag::className(), ['article_id' => 'id']);
+    }
+
     /**
      * @inheritdoc
      */
@@ -45,4 +50,22 @@ class NewsArticle extends BaseModel
             [['thumb_img'], 'image'],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'id'          => Yii::t('common', 'ID'),
+            'title'       => Yii::t('common', 'Title'),
+            'summary'     => Yii::t('common', 'Summary'),
+            'category_id' => Yii::t('common', 'Category ID'),
+            'thumb_img'   => Yii::t('common', 'Thumb Img'),
+            'content'     => Yii::t('common', 'Content'),
+            'hits'        => Yii::t('common', 'Hits'),
+            'tag'         => Yii::t('common', 'Tag'),
+            'is_valid'    => Yii::t('common', 'Is Valid'),
+            'created_at'  => Yii::t('common', 'Created At'),
+            'updated_at'  => Yii::t('common', 'Updated At'),
+        ];
+    }
+    
 }

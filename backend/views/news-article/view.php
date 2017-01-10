@@ -45,8 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'title',
                     'summary',
                     'category_id',
-                    'content:ntext',
                     'hits',
+                    'content:html',
+                    // [
+                    //     'label' => 'tag',
+                    //     'value' => $model->relate->tag
+                    // ],
+                    'is_valid',
                     'created_at',
                     'updated_at',
                 ],

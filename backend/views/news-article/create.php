@@ -1,8 +1,5 @@
 <?php
 
-use yii\helpers\Html;
-
-
 /* @var $this yii\web\View */
 /* @var $model common\models\NewsArticle */
 
@@ -11,9 +8,14 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'News Articles'),
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-article-create">
+    <?php if (Yii::$app->session->hasFlash('Warning')): ?>
+        <div class="callout callout-danger">
+            <h4>Warning!</h4>
+            <p><?= Yii::$app->session->getFlash('Warning') ?></p>
+        </div>
+    <?php endif; ?>
 
     <div class="box">
-
         <div class="box-header with-border">
             <h3 class="box-title"></h3>
             <div class="box-tools pull-right">
@@ -29,11 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="box-body">
-
             <?= $this->render('_form', [
                 'model' => $model,
+                'categories' => $categories,
             ]) ?>
-
         </div>
     </div>
 </div>
