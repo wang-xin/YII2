@@ -43,10 +43,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     'name',
-                    'parent_id',
+                    [
+                        'label' => 'parent_id',
+                        'value' => $model->parent_id ? $model->getCategoryById($model->parent_id)->name : Yii::t('backend', 'Top category'),
+                    ],
                     'remark',
                     'sort',
-                    'status',
+                    [
+                        'label'  => 'status',
+                        'value'  => ($model->status == \common\models\NewsCategory::STATUS_ENABLED) ?
+                            '<span class="label label-danger">' . Yii::t('backend', 'Status Disabled') . '</span>' :
+                            '<span class="label label-success">' . Yii::t('backend', 'Status Enabled') . '</span>',
+                        'format' => 'raw',
+                    ],
                 ],
             ]) ?>
 

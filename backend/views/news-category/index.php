@@ -39,7 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'id',
                 'name',
-                'parent_id',
+                [
+                    'attribute' => 'parent_id',
+                    'value' => function($model){
+                        return $model->parent_id ? $model->getCategoryById($model->parent_id)->name : Yii::t('backend', 'Top category');
+                    },
+                    // 'filter' => array_merge([0 => Yii::t('backend', 'Top category')], $categories),
+                    'filter' => [0 => Yii::t('backend', 'Top category')] + $categories,
+                ],
                 'sort',
                 [
                     'attribute' => 'created_at',
@@ -60,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         NewsCategory::STATUS_ENABLED  => Yii::t('backend', 'Status Enabled'),
                     ],
                 ],
-                ['class' => 'yii\grid\ActionColumn'],
+                ['class' => 'backend\widgets\ActionColumn'],
             ],
         ]); ?>
         <?php Pjax::end(); ?>

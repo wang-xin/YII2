@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\NewsCategoryForm;
+use common\helpers\Tree;
 use Yii;
 use common\models\NewsCategory;
 use backend\models\searchs\NewsCategory as NewsCategorySearch;
@@ -21,7 +23,7 @@ class NewsCategoryController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -38,15 +40,25 @@ class NewsCategoryController extends Controller
         $searchModel = new NewsCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $data = NewsCategory::getAllCategories();
+        $categoriesForLevel = Tree::unLimitedForLevel($data);
+        $categories = [];
+        foreach ($categoriesForLevel as $value) {
+            $categories[$value['id']] = $value['html'] . $value['name'];
+        }
+
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories'   => $categories,
         ]);
     }
 
     /**
      * Displays a single NewsCategory model.
+     *
      * @param integer $id
+     *
      * @return mixed
      */
     public function actionView($id)
@@ -63,40 +75,68 @@ class NewsCategoryController extends Controller
      */
     public function actionCreate()
     {
-        $model = new NewsCategory();
+        $model = new NewsCategoryForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $data = NewsCategory::getAllCategories();
+        $categoriesForLevel = Tree::unLimitedForLevel($data);
+        $categories = [];
+        foreach ($categoriesForLevel as $value) {
+            $categories[$value['id']] = $value['html'] . $value['name'];
         }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (!$model->create()) {
+                Yii::$app->session->setFlash('Warning', $model->_lastError);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        return $this->render('create', [
+            'model'      => $model,
+            'categories' => $categories,
+        ]);
     }
 
     /**
      * Updates an existing NewsCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $data = NewsCategory::getAllCategories();
+        $categoriesForLevel = Tree::unLimitedForLevel($data);
+        $categories = [];
+        foreach ($categoriesForLevel as $value) {
+            $categories[$value['id']] = $value['html'] . $value['name'];
         }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (!$model->save(false)) {
+                Yii::$app->session->setFlash('Warning', $model->firstErrors);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        return $this->render('update', [
+            'model'      => $model,
+            'categories' => $categories,
+        ]);
     }
 
     /**
      * Deletes an existing NewsCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -109,7 +149,9 @@ class NewsCategoryController extends Controller
     /**
      * Finds the NewsCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return NewsCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -118,7 +160,7 @@ class NewsCategoryController extends Controller
         if (($model = NewsCategory::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('common', 'The requested page does not exist.'));
         }
     }
 }

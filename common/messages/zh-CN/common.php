@@ -16,4 +16,6 @@ return [
     'Sign In'  => '登录',
     'username' => '用户名',
     'password' => '密码',
+
+    'The requested page does not exist.' => '所请求的页面不存在。',
 ];

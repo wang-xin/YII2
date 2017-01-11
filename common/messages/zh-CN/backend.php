@@ -37,4 +37,7 @@ return [
     'Articles and correlation of tag save failed!' => '文章与标签的关联关系保存失败',
     'Publish'                                      => '发布',
     'Unpublish'                                    => '暂不发布',
+    'Please select a category!'                    => '请选择分类',
+    'The category create failure!'                 => '新闻分类保存失败',
+    'Top category'                                 => '顶级分类',
 ];
