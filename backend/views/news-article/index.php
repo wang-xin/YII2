@@ -58,7 +58,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute'     => 'hits',
                         'headerOptions' => ['width' => '120'],
                     ],
-                    'created_at:datetime',
+                    [
+                        'attribute' => 'created_at',
+                        'value'     => function ($model) {
+                            return date('Y-m-d H:i:s', $model->created_at);
+                        },
+                        'filter'    => \kartik\date\DatePicker::widget([
+                            'name'          => 'NewsArticle[created_at]',
+                            'type'          => \kartik\date\DatePicker::TYPE_INPUT,
+                            'value'         => $searchModel->created_at,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format'    => 'yyyy-mm-dd',
+                            ],
+                        ]),
+                    ],
 
                     ['class' => 'backend\widgets\ActionColumn'],
                 ],

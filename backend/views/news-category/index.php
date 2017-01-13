@@ -53,6 +53,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value'     => function ($model) {
                         return date('Y-m-d H:i:s', $model->created_at);
                     },
+                    'filter'    => \kartik\date\DatePicker::widget([
+                        'name'          => 'NewsCategory[created_at]',
+                        'type'          => \kartik\date\DatePicker::TYPE_INPUT,
+                        'value'         => $searchModel->created_at,
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'format'    => 'yyyy-mm-dd',
+                        ],
+                    ]),
                 ],
                 [
                     'attribute' => 'status',
