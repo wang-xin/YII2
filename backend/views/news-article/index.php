@@ -47,6 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute'     => 'category_id',
                         'label'         => Yii::t('backend', 'Belong To Category'),
+                        'value'         => function ($model) {
+                            return \common\models\NewsCategory::findOne($model->category_id)->name;
+                        },
+                        'filter'        => $categories,
                         'headerOptions' => ['width' => '200'],
                     ],
                     'summary',

@@ -68,4 +68,12 @@ class NewsTagForm extends BaseFormModel
 
         return $res->id;
     }
+
+    public function updateTags($tags)
+    {
+        if (!empty($tags)) {
+            $model = new NewsTag();
+            $model->updateAllCounters(['article_number' => -1], ['in' , 'name' , $tags]);
+        }
+    }
 }

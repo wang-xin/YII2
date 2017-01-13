@@ -23,6 +23,7 @@ return [
     'Delete'                                       => '删除',
     'Are you sure you want to delete this item?'   => '您确定要删除此项吗？',
     'News Articles'                                => '文章管理',
+    'News Article'                                 => '文章',
     'Create News Article'                          => '创建文章',
     'Title'                                        => '标题',
     'Summary'                                      => '摘要',

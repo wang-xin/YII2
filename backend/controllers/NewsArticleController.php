@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\NewsArticleForm;
+use backend\models\NewsCategoryForm;
 use common\helpers\Tree;
 use common\models\NewsCategory;
 use Yii;
@@ -68,9 +69,17 @@ class NewsArticleController extends Controller
         $searchModel = new NewsArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $data = NewsCategory::getAllCategories();
+        $categoriesForLevel = Tree::unLimitedForLevel($data);
+        $categories = [];
+        foreach ($categoriesForLevel as $value) {
+            $categories[$value['id']] = $value['html'] . $value['name'];
+        }
+
         return $this->render('index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories'   => $categories,
         ]);
     }
 
@@ -101,7 +110,6 @@ class NewsArticleController extends Controller
             $categoriesForLevel[$key]['name'] = $value['html'] . $value['name'];
         }
         $categories = ArrayHelper::map($categoriesForLevel, 'id', 'name');
-        $categories = ArrayHelper::htmlDecode($categories);
 
         $model = new NewsArticleForm();
         $model->scenarios(NewsArticleForm::SCENARIO_CREATE);
@@ -131,14 +139,29 @@ class NewsArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenarios(NewsArticleForm::SCENARIO_UPDATE);
+        $model->isNewRecord = false;    // 更新
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        // 文章分类数据
+        $categoryLists = NewsCategory::getAllCategories();
+        $categoriesForLevel = Tree::unLimitedForLevel($categoryLists);
+        foreach ($categoriesForLevel as $key => $value) {
+            $categoriesForLevel[$key]['name'] = $value['html'] . $value['name'];
         }
+        $categories = ArrayHelper::map($categoriesForLevel, 'id', 'name');
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (!$model->update()) {
+                Yii::$app->session->setFlash('Warning', $model->_lastError);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        return $this->render('update', [
+            'model'      => $model,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -151,9 +174,12 @@ class NewsArticleController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        if (!$model->delete()) {
+            Yii::$app->session->setFlash('Warning', $model->_lastError);
+        } else {
+            return $this->redirect(['index']);
+        }
     }
 
     /**
@@ -167,13 +193,23 @@ class NewsArticleController extends Controller
      */
     protected function findModel($id)
     {
-        $model = NewsArticle::find()->with(['relate.tag'])->where(['id' => $id])->one();
-        // print_r($model->relate[0]->tag);die;
+        $model = new NewsArticleForm();
 
-        if (null !== $model) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        $result = NewsArticle::find()->with(['relate.tag'])->where(['id' => $id])->asArray()->one();
+        if (!$result) {
+            throw new NotFoundHttpException(Yii::t('common', 'The requested page does not exist.'));
         }
+
+        // 处理标签
+        $result['tag'] = [];
+        if (isset($result['relate']) && !empty($result['relate'])) {
+            foreach ($result['relate'] as $list) {
+                $result['tag'][] = $list['tag']['name'];
+            }
+            unset($result['relate']);
+        }
+        $model->setAttributes($result);
+
+        return $model;
     }
 }

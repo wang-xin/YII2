@@ -55,11 +55,11 @@ class NewsArticle extends BaseModel
     {
         return [
             'id'          => Yii::t('common', 'ID'),
-            'title'       => Yii::t('common', 'Title'),
-            'summary'     => Yii::t('common', 'Summary'),
-            'category_id' => Yii::t('common', 'Category ID'),
-            'thumb_img'   => Yii::t('common', 'Thumb Img'),
-            'content'     => Yii::t('common', 'Content'),
+            'title'       => Yii::t('common', 'Article Title'),
+            'summary'     => Yii::t('common', 'Article Summary'),
+            'category_id' => Yii::t('common', 'Article Category'),
+            'thumb_img'   => Yii::t('common', 'Article Thumb Img'),
+            'content'     => Yii::t('common', 'Article Content'),
             'hits'        => Yii::t('common', 'Hits'),
             'tag'         => Yii::t('common', 'Tag'),
             'is_valid'    => Yii::t('common', 'Is Valid'),
@@ -67,5 +67,5 @@ class NewsArticle extends BaseModel
             'updated_at'  => Yii::t('common', 'Updated At'),
         ];
     }
-    
+
 }

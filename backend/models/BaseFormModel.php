@@ -28,9 +28,11 @@ class BaseFormModel extends Model
      *
      * EVENT_AFTER_CREATE   创建后的事件
      * EVENT_AFTER_UPDATE   更新后的事件
+     * EVENT_AFTER_DELETE   删除后的事件
      */
     const EVENT_AFTER_CREATE = 'eventAfterCreate';
     const EVENT_AFTER_UPDATE = 'eventAfterUpdate';
+    const EVENT_AFTER_DELETE = 'eventAfterDelete';
 
     public $_lastError;     // 错误信息
 

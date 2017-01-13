@@ -6,16 +6,21 @@ use yii\helpers\Html;
 /* @var $model common\models\NewsArticle */
 
 $this->title = Yii::t('backend', 'Update {modelClass}: ', [
-        'modelClass' => 'News Article',
+        'modelClass' => Yii::t('backend', 'News Article'),
     ]) . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'News Articles'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 ?>
 <div class="news-article-update">
+    <?php if (Yii::$app->session->hasFlash('Warning')): ?>
+        <div class="callout callout-danger">
+            <h4>Warning!</h4>
+            <p><?= Yii::$app->session->getFlash('Warning') ?></p>
+        </div>
+    <?php endif; ?>
 
     <div class="box">
-
         <div class="box-header with-border">
             <h3 class="box-title"></h3>
             <div class="box-tools pull-right">
@@ -31,11 +36,10 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
         </div>
 
         <div class="box-body">
-
             <?= $this->render('_form', [
-                'model' => $model,
+                'model'      => $model,
+                'categories' => $categories,
             ]) ?>
-
         </div>
     </div>
 </div>

@@ -44,16 +44,33 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'title',
                     'summary',
-                    'category_id',
+                    [
+                        'label' => Yii::t('backend', 'Belong To Category'),
+                        'value' => \common\models\NewsCategory::findOne($model->category_id)->name,
+                    ],
+                    [
+                        'label'  => Yii::t('backend', 'Thumb Img'),
+                        'value'  => Yii::$app->params['uploadFileUrl'] . $model->thumb_img,
+                        'format' => [
+                            'image',
+                            [
+                                // 'width'  => '84',
+                                'height' => '50%',
+                            ],
+                        ],
+                    ],
                     'hits',
                     'content:html',
-                    // [
-                    //     'label' => 'tag',
-                    //     'value' => $model->relate->tag
-                    // ],
-                    'is_valid',
-                    'created_at',
-                    'updated_at',
+                    [
+                        'label' => Yii::t('backend', 'Tag'),
+                        'value' => implode(', ', $model->tag),
+                    ],
+                    [
+                        'label' => Yii::t('backend', 'Is Valid'),
+                        'value' => ($model->is_valid == \common\models\NewsArticle::IS_VALID) ? Yii::t('backend', 'Publish') : Yii::t('backend', 'Unpublish'),
+                    ],
+                    'created_at:datetime',
+                    'updated_at:datetime',
                 ],
             ]) ?>
 
