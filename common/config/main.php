@@ -15,6 +15,13 @@ return [
                         'common' => 'common.php',
                     ],
                 ],
+                'backend' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                    'fileMap' => [
+                        'backend' => 'backend.php',
+                    ],
+                ],
             ],
         ],
     ],
