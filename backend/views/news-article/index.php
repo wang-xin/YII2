@@ -53,7 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filter'        => $categories,
                         'headerOptions' => ['width' => '200'],
                     ],
-                    'summary',
+                    [
+                        'attribute'     => 'summary',
+                        'value'         => function ($model) {
+                            return \common\helpers\String::msubstr($model->summary, 0, 45);
+                        },
+                    ],
                     [
                         'attribute'     => 'hits',
                         'headerOptions' => ['width' => '120'],
