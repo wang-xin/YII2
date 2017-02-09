@@ -1,0 +1,22 @@
+# Your personal GitHub token
+github_token: 6691b2aaa3b73273389f6a52c3a9b0a2e0afb45f
+# Read more: https://github.com/blog/1509-personal-api-tokens
+# You can generate it here: https://github.com/settings/tokens
+
+# Guest OS timezone
+timezone: Asia/Shanghai
+
+# Are we need check box updates for every 'vagrant up'?
+box_check_update: false
+
+# Virtual machine name
+machine_name: yii2
+
+# Virtual machine IP
+ip: 10.0.0.100
+
+# Virtual machine CPU cores number
+cpus: 1
+
+# Virtual machine RAM
+memory: 512
